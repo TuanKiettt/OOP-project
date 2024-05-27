@@ -8,12 +8,12 @@ package kk.pe.tabs;
  *
  * @author songk
  */
-public class AddExpenditurePane extends javax.swing.JPanel {
+public class AddReceiptPane extends javax.swing.JPanel {
 
     /**
      * Creates new form AddExpenditurePane
      */
-    public AddExpenditurePane() {
+    public AddReceiptPane() {
         initComponents();
     }
 
@@ -52,7 +52,7 @@ public class AddExpenditurePane extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 0, 204));
-        jLabel1.setText("Add New Expenditure");
+        jLabel1.setText("Add New Receipt");
 
         jLabel2.setText("ID:");
 

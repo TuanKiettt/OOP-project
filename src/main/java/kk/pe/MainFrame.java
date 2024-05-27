@@ -6,7 +6,13 @@ package kk.pe;
 
 import java.awt.Component;
 import java.awt.event.KeyEvent;
+import kk.pe.dialog.AboutUsDialog;
+import kk.pe.dialog.LoginDialog;
+import kk.pe.dialog.SettingDialog;
 import kk.pe.tabs.AddExpenditurePane;
+import kk.pe.tabs.AddReceiptPane;
+import kk.pe.tabs.ListExpendituresPane;
+import kk.pe.tabs.ListReceiptsPane;
 
 /**
  *
@@ -54,8 +60,14 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         menuExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        menuAddExpenditureType = new javax.swing.JMenuItem();
+        menuListExpenditureTypes = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
         menuAddExpenditure = new javax.swing.JMenuItem();
         menuListExpenditure = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
+        menuAddReceiptType = new javax.swing.JMenuItem();
+        menuListReceiptTypes = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menuAddNewReceipt = new javax.swing.JMenuItem();
         menuListReceipt = new javax.swing.JMenuItem();
@@ -65,6 +77,8 @@ public class MainFrame extends javax.swing.JFrame {
         menuAboutUs = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Personal Expenditure");
+        setSize(new java.awt.Dimension(920, 700));
 
         jToolBar1.setRollover(true);
 
@@ -98,6 +112,11 @@ public class MainFrame extends javax.swing.JFrame {
         tbrAddReceipt.setFocusable(false);
         tbrAddReceipt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         tbrAddReceipt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tbrAddReceipt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbrAddReceiptActionPerformed(evt);
+            }
+        });
         jToolBar1.add(tbrAddReceipt);
 
         tbrListReceipt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/receipt_32.png"))); // NOI18N
@@ -105,6 +124,11 @@ public class MainFrame extends javax.swing.JFrame {
         tbrListReceipt.setFocusable(false);
         tbrListReceipt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         tbrListReceipt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tbrListReceipt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbrListReceiptActionPerformed(evt);
+            }
+        });
         jToolBar1.add(tbrListReceipt);
         jToolBar1.add(jSeparator6);
 
@@ -113,6 +137,11 @@ public class MainFrame extends javax.swing.JFrame {
         tbrLock.setFocusable(false);
         tbrLock.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         tbrLock.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tbrLock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbrLockActionPerformed(evt);
+            }
+        });
         jToolBar1.add(tbrLock);
         jToolBar1.add(jSeparator7);
 
@@ -132,11 +161,11 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 566, Short.MAX_VALUE)
+            .addGap(0, 781, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 205, Short.MAX_VALUE)
+            .addGap(0, 349, Short.MAX_VALUE)
         );
 
         tpnBoard.addTab("Home", new javax.swing.ImageIcon(getClass().getResource("/icons/home_32.png")), jPanel2); // NOI18N
@@ -175,6 +204,11 @@ public class MainFrame extends javax.swing.JFrame {
         menuSettings.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, 0));
         menuSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/setting_20.png"))); // NOI18N
         menuSettings.setText("Settings");
+        menuSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSettingsActionPerformed(evt);
+            }
+        });
         jMenu1.add(menuSettings);
         jMenu1.add(jSeparator4);
 
@@ -188,6 +222,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu2.setMnemonic(KeyEvent.VK_M);
         jMenu2.setText("Manager");
+
+        menuAddExpenditureType.setText("Add Expenditure Type");
+        jMenu2.add(menuAddExpenditureType);
+
+        menuListExpenditureTypes.setText("List Expenditure Types");
+        jMenu2.add(menuListExpenditureTypes);
+        jMenu2.add(jSeparator8);
 
         menuAddExpenditure.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new_20.png"))); // NOI18N
         menuAddExpenditure.setText("Add New Expenditure");
@@ -206,6 +247,18 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu2.add(menuListExpenditure);
+        jMenu2.add(jSeparator9);
+
+        menuAddReceiptType.setText("Add Receipt Type");
+        jMenu2.add(menuAddReceiptType);
+
+        menuListReceiptTypes.setText("List Receipt Types");
+        menuListReceiptTypes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuListReceiptTypesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuListReceiptTypes);
         jMenu2.add(jSeparator2);
 
         menuAddNewReceipt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new_20.png"))); // NOI18N
@@ -219,6 +272,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         menuListReceipt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/receipt_20.png"))); // NOI18N
         menuListReceipt.setText("List Receipt");
+        menuListReceipt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuListReceiptActionPerformed(evt);
+            }
+        });
         jMenu2.add(menuListReceipt);
 
         jMenuBar1.add(jMenu2);
@@ -266,8 +324,6 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(tpnBoard)
                 .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuContentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuContentActionPerformed
@@ -275,15 +331,16 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuContentActionPerformed
 
     private void menuAboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAboutUsActionPerformed
-        // TODO add your handling code here:
+        AboutUsDialog dialog = new AboutUsDialog(this, true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_menuAboutUsActionPerformed
 
     private void menuListExpenditureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuListExpenditureActionPerformed
-        // TODO add your handling code here:
+       tbrListExpenditureActionPerformed(evt);
     }//GEN-LAST:event_menuListExpenditureActionPerformed
 
     private void menuAddNewReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddNewReceiptActionPerformed
-        // TODO add your handling code here:
+        tbrAddReceiptActionPerformed(evt);
     }//GEN-LAST:event_menuAddNewReceiptActionPerformed
 
     private void menuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoginActionPerformed
@@ -291,15 +348,18 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuLoginActionPerformed
 
     private void menuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLogoutActionPerformed
-        // TODO add your handling code here:
+        LoginDialog dialog = new LoginDialog(this,true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_menuLogoutActionPerformed
 
     private void menuLockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLockActionPerformed
-        // TODO add your handling code here:
+        menuLogoutActionPerformed(evt);
     }//GEN-LAST:event_menuLockActionPerformed
 
     private void tbrListExpenditureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbrListExpenditureActionPerformed
-        // TODO add your handling code here:
+        ListExpendituresPane pane = new ListExpendituresPane();
+        tpnBoard.addTab("List Expenditures", pane);
+        tpnBoard.setSelectedComponent(pane);
     }//GEN-LAST:event_tbrListExpenditureActionPerformed
 
     private void tbrAddExpenditureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbrAddExpenditureActionPerformed
@@ -320,6 +380,36 @@ public class MainFrame extends javax.swing.JFrame {
     private void menuAddExpenditureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddExpenditureActionPerformed
         tbrAddExpenditureActionPerformed(evt);
     }//GEN-LAST:event_menuAddExpenditureActionPerformed
+
+    private void tbrAddReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbrAddReceiptActionPerformed
+        AddReceiptPane pane = new AddReceiptPane();
+        tpnBoard.addTab("Add Receipt", pane);
+        tpnBoard.setSelectedComponent(pane);
+    }//GEN-LAST:event_tbrAddReceiptActionPerformed
+
+    private void tbrListReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbrListReceiptActionPerformed
+        ListReceiptsPane pane = new ListReceiptsPane();
+        tpnBoard.addTab("List Receipts", pane);
+        tpnBoard.setSelectedComponent(pane);
+    }//GEN-LAST:event_tbrListReceiptActionPerformed
+
+    private void menuListReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuListReceiptActionPerformed
+       tbrListReceiptActionPerformed(evt);
+    }//GEN-LAST:event_menuListReceiptActionPerformed
+
+    private void menuSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSettingsActionPerformed
+        SettingDialog dialog = new SettingDialog(this, true);
+        
+        dialog.setVisible(true);
+    }//GEN-LAST:event_menuSettingsActionPerformed
+
+    private void tbrLockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbrLockActionPerformed
+        menuLogoutActionPerformed(evt);
+    }//GEN-LAST:event_tbrLockActionPerformed
+
+    private void menuListReceiptTypesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuListReceiptTypesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuListReceiptTypesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -352,6 +442,10 @@ public class MainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainFrame().setVisible(true);
+                
+                LoginDialog dialog = new LoginDialog(null, true);
+                
+                dialog.setVisible(true);
             }
         });
     }
@@ -369,14 +463,20 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JToolBar.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem menuAboutUs;
     private javax.swing.JMenuItem menuAddExpenditure;
+    private javax.swing.JMenuItem menuAddExpenditureType;
     private javax.swing.JMenuItem menuAddNewReceipt;
+    private javax.swing.JMenuItem menuAddReceiptType;
     private javax.swing.JMenuItem menuContent;
     private javax.swing.JMenuItem menuExit;
     private javax.swing.JMenuItem menuListExpenditure;
+    private javax.swing.JMenuItem menuListExpenditureTypes;
     private javax.swing.JMenuItem menuListReceipt;
+    private javax.swing.JMenuItem menuListReceiptTypes;
     private javax.swing.JMenuItem menuLock;
     private javax.swing.JMenuItem menuLogin;
     private javax.swing.JMenuItem menuLogout;
