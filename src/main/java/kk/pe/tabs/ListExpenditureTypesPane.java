@@ -4,18 +4,56 @@
  */
 package kk.pe.tabs;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import kk.pe.dao.ExpenditureTypeDao;
+import kk.pe.entity.ExpenditureType;
+import kk.pe.util.MessageBox;
+
 /**
  *
  * @author songk
  */
-public class ListReceiptsPane extends javax.swing.JPanel {
-
+public class ListExpenditureTypesPane extends javax.swing.JPanel {
+    private DefaultTableModel model = null;
     /**
      * Creates new form ListExpenditure
      */
-    public ListReceiptsPane() {
+    public ListExpenditureTypesPane() {
         initComponents();
+        
+        initTable();
+        
+        loadData();
     }
+    
+    private void initTable(){
+        model = new DefaultTableModel();
+                
+        model.setColumnIdentifiers(new String [] {"ID","Name"});
+        
+        tblList.setModel(model);
+    }
+    
+    private void loadData(){
+        try{
+            ExpenditureTypeDao dao = new ExpenditureTypeDao();
+            List<ExpenditureType> list = dao.findAll();
+            
+            model.setRowCount(0);
+            for(ExpenditureType item : list){
+                Object [] row = new Object[]{item.getId(), item.getName()};
+                
+                model.addRow(row);
+            }
+            
+            model.fireTableDataChanged();
+               
+        }catch (Exception e){
+            MessageBox.showErrorMessage(this, "Error", e.getMessage());
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,7 +71,7 @@ public class ListReceiptsPane extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 204));
-        jLabel1.setText("List Receipts");
+        jLabel1.setText("List Expenditure Types");
 
         tblList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

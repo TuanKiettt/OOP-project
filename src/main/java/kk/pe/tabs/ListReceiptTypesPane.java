@@ -8,12 +8,12 @@ package kk.pe.tabs;
  *
  * @author songk
  */
-public class ListReceiptsPane extends javax.swing.JPanel {
+public class ListReceiptTypesPane extends javax.swing.JPanel {
 
     /**
      * Creates new form ListExpenditure
      */
-    public ListReceiptsPane() {
+    public ListReceiptTypesPane() {
         initComponents();
     }
 
@@ -33,7 +33,7 @@ public class ListReceiptsPane extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 204));
-        jLabel1.setText("List Receipts");
+        jLabel1.setText("List Receipt Types");
 
         tblList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

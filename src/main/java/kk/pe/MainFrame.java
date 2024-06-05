@@ -10,8 +10,12 @@ import kk.pe.dialog.AboutUsDialog;
 import kk.pe.dialog.LoginDialog;
 import kk.pe.dialog.SettingDialog;
 import kk.pe.tabs.AddExpenditurePane;
+import kk.pe.tabs.AddExpenditureTypePane;
 import kk.pe.tabs.AddReceiptPane;
+import kk.pe.tabs.AddReceiptTypePane;
+import kk.pe.tabs.ListExpenditureTypesPane;
 import kk.pe.tabs.ListExpendituresPane;
+import kk.pe.tabs.ListReceiptTypesPane;
 import kk.pe.tabs.ListReceiptsPane;
 
 /**
@@ -201,7 +205,6 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(menuLock);
         jMenu1.add(jSeparator3);
 
-        menuSettings.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, 0));
         menuSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/setting_20.png"))); // NOI18N
         menuSettings.setText("Settings");
         menuSettings.addActionListener(new java.awt.event.ActionListener() {
@@ -224,9 +227,19 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu2.setText("Manager");
 
         menuAddExpenditureType.setText("Add Expenditure Type");
+        menuAddExpenditureType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddExpenditureTypeActionPerformed(evt);
+            }
+        });
         jMenu2.add(menuAddExpenditureType);
 
         menuListExpenditureTypes.setText("List Expenditure Types");
+        menuListExpenditureTypes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuListExpenditureTypesActionPerformed(evt);
+            }
+        });
         jMenu2.add(menuListExpenditureTypes);
         jMenu2.add(jSeparator8);
 
@@ -250,6 +263,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu2.add(jSeparator9);
 
         menuAddReceiptType.setText("Add Receipt Type");
+        menuAddReceiptType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddReceiptTypeActionPerformed(evt);
+            }
+        });
         jMenu2.add(menuAddReceiptType);
 
         menuListReceiptTypes.setText("List Receipt Types");
@@ -408,8 +426,32 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tbrLockActionPerformed
 
     private void menuListReceiptTypesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuListReceiptTypesActionPerformed
-        // TODO add your handling code here:
+        ListReceiptTypesPane pane = new ListReceiptTypesPane();
+        tpnBoard.addTab("List Receipt Types", pane);
+        tpnBoard.setSelectedComponent(pane);
     }//GEN-LAST:event_menuListReceiptTypesActionPerformed
+
+    private void menuAddExpenditureTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddExpenditureTypeActionPerformed
+        AddExpenditureTypePane pane = new AddExpenditureTypePane(this);
+        tpnBoard.addTab("Add Expenditure Type", pane);
+        tpnBoard.setSelectedComponent(pane);
+    }//GEN-LAST:event_menuAddExpenditureTypeActionPerformed
+   
+    public void showListExpenditureTypes() {
+        menuListExpenditureTypesActionPerformed(null);
+    }
+    
+    private void menuListExpenditureTypesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuListExpenditureTypesActionPerformed
+        ListExpenditureTypesPane pane = new ListExpenditureTypesPane();
+        tpnBoard.addTab("List Expenditure Types", pane);
+        tpnBoard.setSelectedComponent(pane);
+    }//GEN-LAST:event_menuListExpenditureTypesActionPerformed
+
+    private void menuAddReceiptTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddReceiptTypeActionPerformed
+        AddReceiptTypePane pane = new AddReceiptTypePane();
+        tpnBoard.addTab("Add Receipt Type", pane);
+        tpnBoard.setSelectedComponent(pane);
+    }//GEN-LAST:event_menuAddReceiptTypeActionPerformed
 
     /**
      * @param args the command line arguments
