@@ -5,7 +5,9 @@
 package kk.pe.tabs;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import kk.pe.MainFrame;
 import kk.pe.dao.ExpenditureTypeDao;
 import kk.pe.entity.ExpenditureType;
 import kk.pe.util.MessageBox;
@@ -16,10 +18,13 @@ import kk.pe.util.MessageBox;
  */
 public class ListExpenditureTypesPane extends javax.swing.JPanel {
     private DefaultTableModel model = null;
+    private MainFrame mainFrame;
     /**
      * Creates new form ListExpenditure
      */
-    public ListExpenditureTypesPane() {
+    public ListExpenditureTypesPane(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+        
         initComponents();
         
         initTable();
@@ -64,10 +69,33 @@ public class ListExpenditureTypesPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ppmList = new javax.swing.JPopupMenu();
+        ppmEdit = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        ppmDelete = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblList = new javax.swing.JTable();
+
+        ppmEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/edit_20.png"))); // NOI18N
+        ppmEdit.setText("Edit");
+        ppmEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmEditActionPerformed(evt);
+            }
+        });
+        ppmList.add(ppmEdit);
+        ppmList.add(jSeparator2);
+
+        ppmDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete_20.png"))); // NOI18N
+        ppmDelete.setText("Delete");
+        ppmDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmDeleteActionPerformed(evt);
+            }
+        });
+        ppmList.add(ppmDelete);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 204));
@@ -84,6 +112,7 @@ public class ListExpenditureTypesPane extends javax.swing.JPanel {
 
             }
         ));
+        tblList.setComponentPopupMenu(ppmList);
         jScrollPane1.setViewportView(tblList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -113,11 +142,53 @@ public class ListExpenditureTypesPane extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ppmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmDeleteActionPerformed
+        try {
+            
+            if(MessageBox.showConfirmMessage(this, "Do you want to delete?")
+                    == JOptionPane.NO_OPTION){
+                return;
+            }
+            
+            ExpenditureTypeDao dao = new ExpenditureTypeDao();
+            
+            int selectedRow = tblList.getSelectedRow();
+            
+            Object idObj = tblList.getValueAt(selectedRow,0);
+            if (idObj !=null){
+                int id = Integer.parseInt(idObj.toString());               
+            
+                if(dao.delete(id)){
+                    MessageBox.showInformationMessage(this, "Information", "Type is deleted");
+                    loadData();
+                }else{
+                    MessageBox.showErrorMessage(this, "Error", "Type can not be deleted");
+
+                }
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();//Thông báo lỗi xuất hiện ở dòng code nào
+            MessageBox.showErrorMessage(this,"Error", e.getMessage());
+        }
+    }//GEN-LAST:event_ppmDeleteActionPerformed
+
+    private void ppmEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmEditActionPerformed
+        int selectedRow = tblList.getSelectedRow();
+            
+        Object idObj = tblList.getValueAt(selectedRow,0);
+        mainFrame.showEditExpenditureType(Integer.parseInt(idObj.toString()));
+    }//GEN-LAST:event_ppmEditActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JMenuItem ppmDelete;
+    private javax.swing.JMenuItem ppmEdit;
+    private javax.swing.JPopupMenu ppmList;
     private javax.swing.JTable tblList;
     // End of variables declaration//GEN-END:variables
 }

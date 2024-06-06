@@ -4,6 +4,15 @@
  */
 package kk.pe.tabs;
 
+import kk.pe.dao.ExpenditureDao;
+import kk.pe.dao.ExpenditureTypeDao;
+import kk.pe.entity.Expenditure;
+import kk.pe.entity.ExpenditureType;
+import kk.pe.util.DateUtil;
+import kk.pe.util.MessageBox;
+import kk.pe.validator.ExpenditureTypeValidator;
+import kk.pe.validator.ExpenditureValidator;
+
 /**
  *
  * @author songk
@@ -15,8 +24,39 @@ public class AddExpenditurePane extends javax.swing.JPanel {
      */
     public AddExpenditurePane() {
         initComponents();
+        
+        loadType();
     }
-
+    
+    private void loadType(){
+        try{
+            ExpenditureTypeDao dao = new ExpenditureTypeDao();
+            var list = dao.findAll();
+            
+            for(ExpenditureType item:list){
+                cbxType.addItem(item);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            MessageBox.showErrorMessage(this, e.getMessage());
+        }
+    }
+    
+    private void changeButtonStates(boolean edit, boolean save, boolean update, boolean delete){
+        btnEdit.setEnabled(edit);
+        btnSave.setEnabled(save);
+        btnUpdate.setEnabled(update);
+        btnDelete.setEnabled(delete);
+    }
+    
+    private void changeFieldStates (boolean isEditable){
+        txtName.setEditable(isEditable);
+        ftfAmount.setEditable(isEditable);
+        ftfDate.setEditable(isEditable);
+        txaNote.setEditable(isEditable);
+        cbxType.setEditable(isEditable);
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +89,7 @@ public class AddExpenditurePane extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         btnList = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 0, 204));
@@ -67,8 +108,6 @@ public class AddExpenditurePane extends javax.swing.JPanel {
         jLabel4.setText("Amount:");
 
         jLabel5.setText("Type:");
-
-        cbxType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel6.setText("Note:");
 
@@ -104,7 +143,7 @@ public class AddExpenditurePane extends javax.swing.JPanel {
                                         .addComponent(cbxType, javax.swing.GroupLayout.Alignment.LEADING, 0, 200, Short.MAX_VALUE))
                                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ftfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(115, Short.MAX_VALUE))))
+                        .addContainerGap(68, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +171,7 @@ public class AddExpenditurePane extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
         );
 
         btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new_20 (2).png"))); // NOI18N
@@ -145,6 +184,11 @@ public class AddExpenditurePane extends javax.swing.JPanel {
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save_20.png"))); // NOI18N
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/update_20.png"))); // NOI18N
         btnUpdate.setText("Update");
@@ -162,6 +206,14 @@ public class AddExpenditurePane extends javax.swing.JPanel {
             }
         });
 
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/edit_20.png"))); // NOI18N
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -172,10 +224,11 @@ public class AddExpenditurePane extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -189,15 +242,17 @@ public class AddExpenditurePane extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnNew)
+                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnUpdate)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnList)
+                        .addComponent(btnList, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jSeparator2)
@@ -218,7 +273,7 @@ public class AddExpenditurePane extends javax.swing.JPanel {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 499, Short.MAX_VALUE)))
+                        .addGap(0, 452, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -250,14 +305,52 @@ public class AddExpenditurePane extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnListActionPerformed
 
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        try {
+//            Kiểm tra tính hợp lệ của dữ liệu trước khi lưu vào cơ sở dữ liệu
+//            Tránh trường hợp người dùng không đưa vào giá trị Name và giá trị Name vẫn được lưu vào csdl
+            String valid = ExpenditureValidator.validate(txtName,ftfAmount,ftfDate,cbxType);
+            if(valid !=null){
+                MessageBox.showErrorMessage(this, "Error", valid);
+                return;
+            }
+// ----------------------------------------------------------------------------------------------------------------------------//           
+            Expenditure entity = new Expenditure();
+            entity.setName(txtName.getText());
+            entity.setAmount(Double.parseDouble(ftfAmount.getText()));
+            DateUtil dateUtil = new DateUtil();
+            entity.setExpenditureDate(dateUtil.toDate(ftfDate.getText()));
+            entity.setNote(txaNote.getText());
+            ExpenditureType ext = (ExpenditureType)cbxType.getSelectedItem();
+            entity.setType(ext.getId());
+            
+            ExpenditureDao dao = new ExpenditureDao();
+            entity = dao.insert(entity);
+            
+            txtID.setText(""+entity.getId());
+            
+            changeFieldStates(false);    
+//Chế độ làm việc của cấc nút khi truy cập vào chức năng Save            
+            changeButtonStates(true,false,true,true);
+        } catch (Exception e){
+            e.printStackTrace();//Thông báo lỗi xuất hiện ở dòng code nào
+            MessageBox.showErrorMessage(this,"Error", e.getMessage());
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnList;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JComboBox<String> cbxType;
+    private javax.swing.JComboBox<ExpenditureType> cbxType;
     private javax.swing.JFormattedTextField ftfAmount;
     private javax.swing.JFormattedTextField ftfDate;
     private javax.swing.JLabel jLabel1;
