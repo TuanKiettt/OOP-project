@@ -90,4 +90,29 @@ public class ExpenditureTypeDao {
             return list;
         }
     }
+    
+    public ExpenditureType findById (int id) throws Exception {
+// Cho phép đọc tất cả dữ liệu từ ExpenditureType        
+        String sql = "select * from ExpenditureType where id = ?";
+//-----------------------------------------------------------------------------------------//
+
+// Để có thể lấy được giá trị của trường tự tăng thì phải có tham số thứ 2 truyền vào PreparedStatement
+        try(Connection con = DatabaseUtil.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql);){         
+            
+            pstmt.setInt(1, id);
+            
+            try(ResultSet rs = pstmt.executeQuery();){
+//           Đọc giá trị từng hàng
+                if(rs.next()){
+                    ExpenditureType entity = new ExpenditureType();
+                    entity.setId(rs.getInt("id"));
+                    entity.setName(rs.getString("name"));
+                    
+                    return entity;
+                }
+            }
+            return null;
+        }
+    }
 }

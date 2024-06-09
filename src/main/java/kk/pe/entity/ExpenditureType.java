@@ -15,6 +15,11 @@ public class ExpenditureType implements Serializable {
         this.id = id;
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return name + " - " + id;
+    }
     
     public int getId() {
         return id;

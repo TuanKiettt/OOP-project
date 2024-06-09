@@ -8,6 +8,10 @@ public class MessageBox {
         JOptionPane.showMessageDialog(parent, message, title, JOptionPane.ERROR_MESSAGE);
     }
     
+    public static void showErrorMessage(Component parent, String message){
+        showErrorMessage(parent, "Error", message);
+    }
+    
     public static void showInformationMessage(Component parent, String title, String message){
         JOptionPane.showMessageDialog(parent, message, title, JOptionPane.INFORMATION_MESSAGE);
     }

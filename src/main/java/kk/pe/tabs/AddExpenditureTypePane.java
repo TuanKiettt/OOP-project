@@ -28,7 +28,28 @@ public class AddExpenditureTypePane extends javax.swing.JPanel {
         
         changeButtonStates(false, true, false, false);
     }
-
+    
+    public AddExpenditureTypePane(MainFrame mainFrame,int id) {
+        this.mainFrame = mainFrame;
+        initComponents();
+        
+        loadById(id);
+    }
+    
+    private void loadById(int id){
+        try{
+            ExpenditureTypeDao dao = new ExpenditureTypeDao();
+            
+            ExpenditureType entity = dao.findById(id);
+            
+            txtID.setText("" +entity.getId());
+            txtName.setText(entity.getName());
+            
+            changeButtonStates(true, false,true,true);
+        }catch(Exception e){
+            MessageBox.showErrorMessage(this, "Error", e.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,6 +168,7 @@ public class AddExpenditureTypePane extends javax.swing.JPanel {
             }
         });
 
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/edit_20.png"))); // NOI18N
         btnEdit.setText("Edit");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

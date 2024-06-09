@@ -375,13 +375,13 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuLockActionPerformed
 
     private void tbrListExpenditureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbrListExpenditureActionPerformed
-        ListExpendituresPane pane = new ListExpendituresPane();
+        ListExpendituresPane pane = new ListExpendituresPane(this);
         tpnBoard.addTab("List Expenditures", pane);
         tpnBoard.setSelectedComponent(pane);
     }//GEN-LAST:event_tbrListExpenditureActionPerformed
 
     private void tbrAddExpenditureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbrAddExpenditureActionPerformed
-        AddExpenditurePane pane = new AddExpenditurePane();
+        AddExpenditurePane pane = new AddExpenditurePane(this);
         
         tpnBoard.addTab("Add Expenditure", pane);
         tpnBoard.setSelectedComponent(pane);
@@ -441,8 +441,24 @@ public class MainFrame extends javax.swing.JFrame {
         menuListExpenditureTypesActionPerformed(null);
     }
     
+    public void showListExpenditure() {
+        tbrListExpenditureActionPerformed(null);
+    }
+    
+    public void showEditExpenditure(int id) {
+        AddExpenditurePane pane = new AddExpenditurePane(this,id);
+        tpnBoard.addTab("Edit Expenditure", pane);
+        tpnBoard.setSelectedComponent(pane);
+    }
+    
+    public void showEditExpenditureType(int id) {
+        AddExpenditureTypePane pane = new AddExpenditureTypePane(this,id);
+        tpnBoard.addTab("Edit Expenditure Types", pane);
+        tpnBoard.setSelectedComponent(pane);
+    }
+    
     private void menuListExpenditureTypesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuListExpenditureTypesActionPerformed
-        ListExpenditureTypesPane pane = new ListExpenditureTypesPane();
+        ListExpenditureTypesPane pane = new ListExpenditureTypesPane(this);
         tpnBoard.addTab("List Expenditure Types", pane);
         tpnBoard.setSelectedComponent(pane);
     }//GEN-LAST:event_menuListExpenditureTypesActionPerformed
