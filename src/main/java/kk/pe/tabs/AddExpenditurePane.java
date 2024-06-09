@@ -4,8 +4,11 @@
  */
 package kk.pe.tabs;
 
+<<<<<<< HEAD
 import javax.swing.JOptionPane;
 import kk.pe.MainFrame;
+=======
+>>>>>>> 87fd15a166746b6b145b7771de6966b53a66022e
 import kk.pe.dao.ExpenditureDao;
 import kk.pe.dao.ExpenditureTypeDao;
 import kk.pe.entity.Expenditure;
@@ -29,6 +32,7 @@ public class AddExpenditurePane extends javax.swing.JPanel {
         
         initComponents();
         
+<<<<<<< HEAD
         loadTypes();
     }
     
@@ -43,11 +47,21 @@ public class AddExpenditurePane extends javax.swing.JPanel {
     
     
     private void loadTypes(){
+=======
+        loadType();
+    }
+    
+    private void loadType(){
+>>>>>>> 87fd15a166746b6b145b7771de6966b53a66022e
         try{
             ExpenditureTypeDao dao = new ExpenditureTypeDao();
             var list = dao.findAll();
             
+<<<<<<< HEAD
             for(ExpenditureType item : list){
+=======
+            for(ExpenditureType item:list){
+>>>>>>> 87fd15a166746b6b145b7771de6966b53a66022e
                 cbxType.addItem(item);
             }
         } catch (Exception e){
@@ -56,6 +70,7 @@ public class AddExpenditurePane extends javax.swing.JPanel {
         }
     }
     
+<<<<<<< HEAD
     private void loadById(int id){
         try{
             ExpenditureDao dao = new ExpenditureDao();
@@ -84,6 +99,8 @@ public class AddExpenditurePane extends javax.swing.JPanel {
         }
     }
     
+=======
+>>>>>>> 87fd15a166746b6b145b7771de6966b53a66022e
     private void changeButtonStates(boolean edit, boolean save, boolean update, boolean delete){
         btnEdit.setEnabled(edit);
         btnSave.setEnabled(save);
@@ -97,7 +114,10 @@ public class AddExpenditurePane extends javax.swing.JPanel {
         ftfDate.setEditable(isEditable);
         txaNote.setEditable(isEditable);
         cbxType.setEditable(isEditable);
+<<<<<<< HEAD
         cbxType.setEnabled(isEditable);
+=======
+>>>>>>> 87fd15a166746b6b145b7771de6966b53a66022e
         
     }
     /**
@@ -154,8 +174,11 @@ public class AddExpenditurePane extends javax.swing.JPanel {
 
         ftfAmount.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
+<<<<<<< HEAD
         jLabel5.setText("Type:");
 
+=======
+>>>>>>> 87fd15a166746b6b145b7771de6966b53a66022e
         jLabel6.setText("Note:");
 
         txaNote.setColumns(20);
@@ -372,9 +395,13 @@ public class AddExpenditurePane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnListActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+<<<<<<< HEAD
         changeButtonStates(true, false,true,true);
         
         changeFieldStates(true);
+=======
+        // TODO add your handling code here:
+>>>>>>> 87fd15a166746b6b145b7771de6966b53a66022e
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -410,6 +437,7 @@ public class AddExpenditurePane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
+<<<<<<< HEAD
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
          try {
              
@@ -480,6 +508,8 @@ public class AddExpenditurePane extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+=======
+>>>>>>> 87fd15a166746b6b145b7771de6966b53a66022e
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
